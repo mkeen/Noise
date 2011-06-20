@@ -14,5 +14,6 @@ You'll need Rubinius in order to use Noise. In my opinion, Rubinius is the best 
 **Creating a new connection:**  
   
     connection = Noise::Connection.new(:host => "localhost", :port => 61613, :username => "guest", :passcode => "guest")
-*or (for the defaults)*
+*or (for the defaults)*  
+
     connection = Noise::Connection.new
