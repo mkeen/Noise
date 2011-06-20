@@ -3,7 +3,7 @@ Noise
 
 ![Noise](http://mkeen.github.com/img/noise.png "Noise: Performant STOMP by Mike Keen")
 
-Noise takes advantage of Rubinius' actor paradigm to enable breakneck STOMP performance in your Ruby application. It's a constant work in progress but is solid enough for you to use in your apps. The codebase is simple, and easy to read.  
+Noise takes advantage of Rubinius' actor paradigm to enable breakneck STOMP performance in your Ruby application. It's a constant work in progress and is definitely not production ready yet. The codebase is simple, and easy to read, and I hope to keep it that way.  
   
 Follow [@mikekeen](http://www.twitter.com/mikekeen) on Twitter. It's the best and fastest way to get in touch with me.  
   
