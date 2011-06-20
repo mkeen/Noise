@@ -1,4 +1,4 @@
-require "actor"
+require "rubinius/actor"
 require "socket"
 require "fcntl"
 require "stringio"
@@ -12,14 +12,14 @@ class Noise::Connection
   
   class << self
     def supervisor
-      Actor.spawn do
+      Rubinius::Actor.spawn do
         supervisor = Actor.current
         
         loop do
-          Actor.receive do |request|
+          Rubinius::Actor.receive do |request|
             request.when @@new do |req|
-              child = Actor.spawn_link(&req.instance.connection)
-              Actor.register(req.instance.object_id.to_s.to_sym, child)
+              child = Rubinius::Actor.spawn_link(&req.instance.connection)
+              Rubinius::Actor.register(req.instance.object_id.to_s.to_sym, child)
             end
             
           end
@@ -43,7 +43,7 @@ class Noise::Connection
   end
   
   def actor
-    @actor ||= Actor.lookup(self.object_id.to_s.to_sym)
+    @actor ||= Rubinius::Actor.lookup(self.object_id.to_s.to_sym)
   end
   
   def write frame
@@ -102,7 +102,7 @@ class Noise::Connection
       buffer = StringIO.new
       
       loop do
-        Actor.receive do |request|
+        Rubinius::Actor.receive do |request|
           request.when @@full do
             @callback.call(buffer.string)
             buffer = StringIO.new
@@ -114,7 +114,7 @@ class Noise::Connection
           
           request.when @@byte do |byte|
             if byte[:packet] === Noise::Frame.zero
-              Actor.current << @@full[0]
+              Rubinius::Actor.current << @@full[0]
             else
               buffer << byte[:packet]
             end
