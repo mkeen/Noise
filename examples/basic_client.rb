@@ -1,4 +1,5 @@
-require "../lib/noise.rb"
+require "rubygems"
+require "noise"
 
 Noise::Connection.new :host => "localhost", :port => 61613, :user => "guest", :pass => "guest" do
 	subscribe "/topic/mike"
