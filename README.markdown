@@ -16,6 +16,10 @@ What can I do with Noise?
 ----------
 You can create scalable realtime Web services that send and receive STOMP commands. You can build protocols on top of it in order to power your stuff. I'll add more straightforward ways to create protocols and services soon. For now, you can do it manually.
 
+What doesn't Noise have right now that it will soon?
+----------
+Test coverage, error reporting, a connection per subscription by default.
+
 **Installation:**
     
     gem build noise.gemspec
@@ -26,10 +30,7 @@ You can create scalable realtime Web services that send and receive STOMP comman
     require "rubygems"
     require "noise"
     Noise::Connection.new :host => "localhost", :port => 61613, :user => "guest", :pass => "guest" do
-      puts "Connection established"
-      subscribe "/topic/mikekeen" do |msg|
-        puts "received " + msg + " from /topic/mikekeen"
-      end
+      puts "Connection established, login accepted"
 
       on_message do |msg|
          puts "received a message. including ones from the above subscription"
