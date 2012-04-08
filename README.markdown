@@ -7,12 +7,23 @@ Noise takes advantage of Rubinius' actor paradigm to enable breakneck STOMP perf
   
 Twitter ([@mikekeen](http://www.twitter.com/mikekeen)) is the best and fastest way to get in touch with me.  
   
-How to Use
+What do I need to use Noise?
 ----------
-You'll need Rubinius in order to use Noise. In my opinion, Rubinius is the best implementation of Ruby and I'm using it for 100% of my production code right now.  
-  
+Noise makes heavy use of Rubinius' actors. Use rvm to install Rubinius if you don't already have it. `rvm install rbx`  
+Noise has been tested with RabbitMQ's STOMP plugin.
+
+What can I do with Noise?
+----------
+You can create scalable realtime Web services that send and receive STOMP commands. You can build protocols on top of it in order to power your stuff. I'll add more straightforward ways to create protocols and services soon. For now, you can do it manually.
+
+**Installation:**
+    
+    gem build noise.gemspec
+    gem install Noise-0.0.1.gem
+
 **Creating a new connection:**  
     
+    require "rubygems"
     require "noise"
     Noise::Connection.new :host => "localhost", :port => 61613, :user => "guest", :pass => "guest" do
       puts "Connection established"
@@ -28,5 +39,5 @@ You'll need Rubinius in order to use Noise. In my opinion, Rubinius is the best 
       on "message", false do |msg|
         puts "received a message. this event callback will only fire once"
       end
-      
+
     end
