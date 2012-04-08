@@ -3,14 +3,13 @@ Noise
 
 ![Noise](http://mkeen.github.com/img/noise.png "Noise: Performant STOMP by Mike Keen")
 
-Noise takes advantage of Rubinius' actor paradigm to enable breakneck STOMP performance in your Ruby application. The codebase is simple, and easy to read, and I hope to keep it that way.  
+Noise takes advantage of Rubinius' actor paradigm (supports JRuby too!) to enable breakneck STOMP performance in your Ruby application. The codebase is simple, and easy to read, and I hope to keep it that way.  
   
 Twitter ([@mikekeen](http://www.twitter.com/mikekeen)) is the best and fastest way to get in touch with me.  
   
 What do I need to use Noise?
 ----------
-Noise makes heavy use of Rubinius' actors. Use rvm to install Rubinius if you don't already have it. `rvm install rbx`  
-Noise has been tested with RabbitMQ's STOMP plugin.
+You need either Rubinius or JRuby to run Noise. This is due to heavy useage of Rubinius actors. If you use JRuby you'll need to `gem install "rubinius-actor"` before this will work.
 
 What can I do with Noise?
 ----------

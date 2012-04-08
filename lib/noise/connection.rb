@@ -1,4 +1,11 @@
-require "actor"
+begin
+  require "actor"
+rescue LoadError
+  require "rubygems"
+  require "rubinius/actor"
+  Actor = Rubinius::Actor
+end
+
 require "socket"
 require "fcntl"
 require "stringio"
