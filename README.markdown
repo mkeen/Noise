@@ -3,7 +3,7 @@ Noise
 
 ![Noise](http://mkeen.github.com/img/noise.png "Noise: Performant STOMP by Mike Keen")
 
-Noise takes advantage of Rubinius' actor paradigm to enable breakneck STOMP performance in your Ruby application. It's a constant work in progress and is definitely not production ready yet. The codebase is simple, and easy to read, and I hope to keep it that way.  
+Noise takes advantage of Rubinius' actor paradigm to enable breakneck STOMP performance in your Ruby application. The codebase is simple, and easy to read, and I hope to keep it that way.  
   
 Twitter ([@mikekeen](http://www.twitter.com/mikekeen)) is the best and fastest way to get in touch with me.  
   
@@ -27,22 +27,34 @@ gem build noise.gemspec
 gem install Noise-0.0.1.gem
 ```
 
-**Creating a new connection:**  
+**Creating a new connection and doing some stuff with it:**  
 
 ```ruby 
 require "rubygems"
 require "noise"
 Noise::Connection.new :host => "localhost", :port => 61613, :user => "guest", :pass => "guest" do
-  puts "Connection established, login accepted"
+  # At this point, you are connected to the server and the login you specified has been verified.
+  subscribe "/topic/noise"
 
-  on_message do |msg|
+  on_message do |frame|
     puts "received a message. including ones from the above subscription"
-    puts msg
+    puts frame.to_hash[:body]
+    send rand(10000).to_s, "/topic/noise"
   end
 
-  on "message", false do |msg|
+  on "message", false do |frame|
     puts "received a message. this event callback will only fire once"
   end
 
+  send "this is a test of the emergency broadcasting system", "/topic/noise"
 end
+
+# You will need to keep the process alive somehow in order to listen for incoming messages.
+# You can do better than this:
+
+sleep 500
 ```
+
+Is this in active development?
+----------
+I am developing this in my spare time but I will respond promptly to bug reports and pull requests.

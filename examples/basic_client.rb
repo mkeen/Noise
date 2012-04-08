@@ -9,7 +9,7 @@ Noise::Connection.new :host => "localhost", :port => 61613, :user => "guest", :p
 		send rand(10000).to_s, "/topic/mike"
 	end
 
-	send "this is a test of the emergency broadcasting", "/topic/mike"
+	send "this is a test of the emergency broadcasting system", "/topic/mike"
 end
 
 sleep 5000
