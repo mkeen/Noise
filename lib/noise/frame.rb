@@ -24,14 +24,18 @@ class Noise::Frame
   def from_string str
     @headers = {}
     @body = ""
-    parse = str.split @@newline
-    @command = parse.shift
-    parse.each do |header|
-      split = header.split ":"
-      @headers[split[0].chomp] = split[1].chomp
+    parse_headers = str.split @@newline
+    @command = parse_headers.shift
+    parse_headers.delete_if do |item|
+      !item.include?(":")
     end
 
-    @body = str[-@headers["content-length"]..-1] unless !@headers.include? "content-length" or @headers["content-length"] < 1
+    parse_headers.each do |header|
+      split = header.split ":"
+      (@headers[split[0].chomp] = split[1].chomp) unless split.length < 1
+    end
+
+    @body = str[-(@headers["content-length"].to_i)..-1].chomp unless !@headers.include? "content-length" or @headers["content-length"].to_i < 1
   end
 
   # Modifies 
@@ -59,7 +63,7 @@ class Noise::Frame
   end
   
   def body
-    @body + @@newline
+    @body + @@newline + @@newline
   end
   
   def to_s

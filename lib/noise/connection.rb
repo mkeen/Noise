@@ -67,16 +67,17 @@ class Noise::Connection
   end
 
   def logout
-    write Noise::Frame.new :command => "disconnect"
+    write Noise::Frame.new :command => "disconect"
   end
 
-  def subscribe destination
-    actor << @@out[Noise::Frame.new(:command => "subscribe", :headers => {:destination => destination})]
+  def subscribe destination, &block
+    #on_message(destination, true, &block)
+    write Noise::Frame.new :command => "subscribe", :headers => {:destination => destination}
   end
 
   def send msg, destination
     #actor << @@out[Noise::Frame.new(:command => "send", :headers => {:destination => destination}, :body => msg)]
-    actor << @@out[Noise::Frame.new(:command => "send", :headers => {:destination => destination}, :body => msg)]
+    write Noise::Frame.new :command => "send", :headers => {:destination => destination}, :body => msg
   end
 
 
@@ -178,7 +179,7 @@ class Noise::Connection
   # to false at the time the subscription was created
   def received_frame frame
     @subscriptions[frame.to_hash[:command]].each do |proc|
-      if proc.call == false
+      if proc.call(frame) == false
         @subscriptions[frame.to_hash[:command]].delete proc
       end
 
@@ -193,8 +194,8 @@ class Noise::Connection
   def on command, forever = true, &block
     @subscriptions ||= {}
     @subscriptions[command.upcase] ||= []
-    @subscriptions[command.upcase] << Proc.new do
-      instance_eval &block
+    @subscriptions[command.upcase] << Proc.new do |frame|
+      instance_exec frame, &block
       # Return the param "forever", which was passed to "on", so that
       # the received_frame method will know whether to remove the sub
       # or not.
