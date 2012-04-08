@@ -38,7 +38,7 @@ class Noise::Frame
     @body = str[-(@headers["content-length"].to_i)..-1].chomp unless !@headers.include? "content-length" or @headers["content-length"].to_i < 1
   end
 
-  # Modifies 
+  # Modifies the attributes of the current class instance to match the data in the hash
   def from_hash hsh
     @command = hsh[:command]
     @headers = hsh[:headers]
