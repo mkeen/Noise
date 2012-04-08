@@ -32,6 +32,7 @@ gem install Noise-0.0.1.gem
 ```ruby 
 require "rubygems"
 require "noise"
+
 Noise::Connection.new :host => "localhost", :port => 61613, :user => "guest", :pass => "guest" do
   # At this point, you are connected to the server and the login you specified has been verified.
   subscribe "/topic/noise"
