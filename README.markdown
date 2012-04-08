@@ -21,24 +21,28 @@ What doesn't Noise have right now that it will soon?
 Test coverage, error reporting, a connection per subscription by default.
 
 **Installation:**
-    
-    gem build noise.gemspec
-    gem install Noise-0.0.1.gem
+
+```bash    
+gem build noise.gemspec
+gem install Noise-0.0.1.gem
+```
 
 **Creating a new connection:**  
-    
-    require "rubygems"
-    require "noise"
-    Noise::Connection.new :host => "localhost", :port => 61613, :user => "guest", :pass => "guest" do
-      puts "Connection established, login accepted"
 
-      on_message do |msg|
-         puts "received a message. including ones from the above subscription"
-         puts msg
-      end
+```ruby 
+require "rubygems"
+require "noise"
+Noise::Connection.new :host => "localhost", :port => 61613, :user => "guest", :pass => "guest" do
+  puts "Connection established, login accepted"
 
-      on "message", false do |msg|
-        puts "received a message. this event callback will only fire once"
-      end
+  on_message do |msg|
+    puts "received a message. including ones from the above subscription"
+    puts msg
+  end
 
-    end
+  on "message", false do |msg|
+    puts "received a message. this event callback will only fire once"
+  end
+
+end
+```
