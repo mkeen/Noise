@@ -37,7 +37,6 @@ Noise::Connection.new :host => "localhost", :port => 61613, :user => "guest", :p
   subscribe "/topic/noise"
 
   on_message do |frame|
-    puts "received a message. including ones from the above subscription"
     puts frame.to_hash[:body]
     send rand(10000).to_s, "/topic/noise"
   end
