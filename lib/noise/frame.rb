@@ -32,7 +32,7 @@ class Noise::Frame
 
     parse_headers.each do |header|
       split = header.split ":"
-      (@headers[split[0].chomp] = split[1].chomp) unless split.length < 1
+      (@headers[split[0].chomp] = split[1].chomp) unless split.length < 2
     end
 
     @body = str[-(@headers["content-length"].to_i)..-1].chomp unless !@headers.include? "content-length" or @headers["content-length"].to_i < 1
