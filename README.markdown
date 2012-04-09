@@ -19,6 +19,8 @@ What doesn't Noise have right now that it will soon?
 ----------
 Test coverage, error reporting, a connection per subscription by default.
 
+How do I use Noise?
+----------
 **Installation:**
 
 ```bash    
