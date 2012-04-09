@@ -63,7 +63,7 @@ class Noise::Frame
   end
   
   def body
-    @body + @@newline + @@newline
+    @body + (@@newline * 2)
   end
   
   def to_s
