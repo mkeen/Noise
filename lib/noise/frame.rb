@@ -21,7 +21,10 @@ class Noise::Frame
   end
   
   # Modifies the attributes of the current class instance to match the data parsed from the STOMP string
+  # This function is fucked, and shouldn't be used much anyway. Frames should be parsed as a stream, not
+  # as one chunk as this encourages
   def from_string str
+    str = str.chomp
     @headers = {}
     @body = ""
     parse_headers = str.split @@newline
@@ -35,7 +38,14 @@ class Noise::Frame
       (@headers[split[0].chomp] = split[1].chomp) unless split.length < 2
     end
 
-    @body = str[-(@headers["content-length"].to_i)..-1].chomp unless !@headers.include? "content-length" or @headers["content-length"].to_i < 1
+    if @headers.include? "content-length"
+      @body = str[-(@headers["content-length"].to_i)..-1].chomp unless @headers["content-length"].to_i < 1
+    else
+      split = str.split(@@newline * 2)
+      @body = split[split.length - 1]
+    end
+
+    puts @body
   end
 
   # Modifies the attributes of the current class instance to match the data in the hash

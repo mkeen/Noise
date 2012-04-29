@@ -40,6 +40,10 @@ class Noise::Connection
 
   # Create a new connection to the server
   def initialize args, &block
+    on_error do |frame|
+      puts "Error"
+    end
+
     on_connect &block unless block.nil?
     @@supervisor ||= Noise::Connection.supervisor
     @hostname = args[:hostname] || args[:host] || "localhost"
@@ -67,6 +71,10 @@ class Noise::Connection
 
     end
 
+  end
+
+  def on_error forever = true, &block
+    on "error", forever, &block
   end
 
   def login

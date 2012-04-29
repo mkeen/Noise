@@ -1,11 +1,10 @@
 require "../lib/noise.rb"
 
-Noise::Connection.new :host => "localhost", :port => 61613, :user => "guest", :pass => "guest" do
+Noise::Connection.new :host => "37.153.96.41", :port => 61613, :user => "admin", :pass => "shadowwood" do
   # At this point, you are connected to the server and the login you specified has been verified.
   subscribe "/topic/noise"
 
   on_message do |frame|
-    puts frame.to_hash[:body]
     send rand(10000).to_s, "/topic/noise"
   end
 
@@ -19,4 +18,4 @@ end
 # You will need to keep the process alive somehow in order to listen for incoming messages.
 # You can do better than this:
 
-sleep 500
+sleep 1000000000
