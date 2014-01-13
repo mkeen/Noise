@@ -1,7 +1,7 @@
 Noise
 =====
 
-![Noise](/mkeen/mkeen.github.com/raw/master/img/noise.png "Noise: Performant STOMP by Mike Keen")
+![Noise](https://raw2.github.com/mkeen/mkeen.github.com/master/img/noise.png "Noise: Performant STOMP by Mike Keen")
 
 Noise takes advantage of Rubinius' actor paradigm (supports JRuby too!) to enable breakneck STOMP performance in your Ruby application. The codebase is simple, and easy to read, and I hope to keep it that way.  
   
