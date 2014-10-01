@@ -1,4 +1,6 @@
 module Noise
-  autoload :Connection, "../lib/noise/connection"
-  autoload :Frame, "../lib/noise/frame"
+  
 end
+
+require_relative "noise/connection"
+require_relative "noise/frame"
