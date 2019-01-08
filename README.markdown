@@ -5,8 +5,6 @@ Noise
 
 Noise takes advantage of Rubinius' actor paradigm (supports JRuby too!) to enable breakneck STOMP performance in your Ruby application. The codebase is simple, and easy to read, and I hope to keep it that way.  
   
-Twitter ([@mikekeen](http://www.twitter.com/mikekeen)) is the best and fastest way to get in touch with me.  
-  
 What do I need to use Noise?
 ----------
 You need either Rubinius or JRuby to run Noise. This is due to heavy useage of Rubinius actors. If you use JRuby you'll need to `gem install "rubinius-actor"` before this will work.
