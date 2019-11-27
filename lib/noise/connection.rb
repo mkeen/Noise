@@ -52,6 +52,14 @@ class Noise::Connection
     @passcode = args[:passcode] || args[:password] || args[:pass] || "guest"
     @@supervisor << @@new[self]
   end
+
+  def connect
+    # Todo: Throw an exception or log something if the socket connection fails.
+    # either being inside another thread or the actor when this is called is
+    # possibly the reason nothing obvious happens here if the stomp service is
+    # down or not listening on the specified port.
+    @socket = TCPSocket.new @hostname, @port
+  end
   
   # Run a block when we connect. If forever is true, this block will run each time
   # the program receives a CONNECTED command
@@ -232,11 +240,7 @@ class Noise::Connection
   
   # Start a STOMP session and listen for input on the socket
   def start
-    # Todo: Throw an exception or log something if the socket connection fails.
-    # either being inside another thread or the actor when this is called is
-    # possibly the reason nothing obvious happens here if the stomp service is
-    # down or not listening on the specified port.
-    @socket = TCPSocket.new @hostname, @port
+    connect
     login
     wait
   end
