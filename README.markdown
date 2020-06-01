@@ -53,7 +53,3 @@ end
 
 sleep 500
 ```
-
-Is this in active development?
-----------
-I am developing this in my spare time but I will respond promptly to bug reports and pull requests.
