@@ -9,6 +9,7 @@ end
 require "socket"
 require "fcntl"
 require "stringio"
+require "openssl"
 
 class Noise::Connection
   @@supervisor = nil
@@ -16,6 +17,7 @@ class Noise::Connection
   @@byte = Struct.new(:packet)
   @@full = Struct.new(:empty)
   @@out = Struct.new(:frame)
+  @@tls = false
   
   class << self
     def supervisor
@@ -59,6 +61,9 @@ class Noise::Connection
     # possibly the reason nothing obvious happens here if the stomp service is
     # down or not listening on the specified port.
     @socket = TCPSocket.new @hostname, @port
+    if @@tls
+      @socket = OpenSSL::SSL::SSLSocket.new(@socket, OpenSSL::SSL::SSLContext.new)
+    end
   end
   
   # Run a block when we connect. If forever is true, this block will run each time
